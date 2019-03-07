@@ -12,6 +12,12 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 
 import fblogin from './app/views/fblogin';
+import HelloFacebook from './app/components/HelloFacebook';
+import FetchTest from './app/route/FetchTest';
+
+import ForgotPassword from './app/views/ForgotPassword';
+import RegisterScreen from './app/views/RegisterScreen';
+
 
 
 export default class App extends Component {
@@ -55,7 +61,10 @@ const AppDrawerNavigatior = createDrawerNavigator({
   Home: Home,
   Dashboard: Dashboard,
   fblogin: fblogin,
-
+  HelloFacebook: HelloFacebook,
+  FetchTest: FetchTest,
+  ForgotPassword: ForgotPassword,
+  RegisterScreen: RegisterScreen,
 
 },{
   unmountInactiveRoute: true,
