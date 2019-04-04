@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView, Button } from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Button, Image, TouchableOpacity } from 'react-native';
 import { 
   createSwitchNavigator, 
   createAppContainer, 
@@ -23,6 +23,10 @@ import FetchTest from './app/route/FetchTest';
 
 import ForgotPassword from './app/views/ForgotPassword';
 import RegisterScreen from './app/views/RegisterScreen';
+import SigninScreen from './app/views/SigninScreen';
+import SignOrReg from './app/views/SignOrReg';
+
+
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -59,7 +63,7 @@ class Dashboard extends React.Component {
   render() {
     return( 
       <ScrollView>
-        <View style={{ height: 1000, borderWidth: 15, borderColor: 'green'}} />
+        <View style={{ height: 1000, borderWidth: 15, borderColor: 'green' }} />
       </ScrollView>
     );
   }
@@ -69,7 +73,7 @@ class Dashboard extends React.Component {
 class WelcomeScreen extends Component {
   render() {
     return(
-      <View style={{flex:1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>WelcomeScreen</Text>
         <Button title='Login' onPress={() => this.props.navigation.navigate('dashboard')} />
         <Button title='Sign up' onPress={() => this.props.navigation.navigate('dashboard')} />
@@ -80,7 +84,7 @@ class WelcomeScreen extends Component {
 class dashboardScreen extends Component {
   render() {
     return(
-      <View style={{flex:1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>dashboardScreen</Text>
       </View>
       );
@@ -90,8 +94,35 @@ class dashboardScreen extends Component {
 class Feed extends Component {
   render() {
     return(
-      <View style={{flex:1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{
+        flex:1, 
+        height: 40,
+        width: '100%',
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor: 'lightgreen',
+        flexDirection: 'row'
+      }}>
+    {/* fetch nearyby data from database when onpress*/}
+        <Text style={{ color: 'white', fontSize: 16 }}>Nearby </Text>
+        <FontAwesome 
+                name="map-marker" 
+                color="white"
+                size={16}
+                />
+      </View>
+        <View style={{
+        flex:12, 
+        height: 40,
+        width: '100%',
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor: 'lightblue',
+        flexDirection: 'row'
+      }}>
         <Text>Feed</Text>
+        </View>
       </View>
       );
   }
@@ -99,7 +130,7 @@ class Feed extends Component {
 class Profile extends Component {
   render() {
     return(
-      <View style={{flex:1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Profile</Text>
       </View>
       );
@@ -115,33 +146,54 @@ class Settings extends Component {
   }
 }
 
-
-
 const dashboardTabNavigator = createBottomTabNavigator({
   Feed,
   Profile,
   Settings
-},{
-  navigationOptions:({navigation}) => {
-    const {routeName} = navigation.state.routes[navigation.state.index];
-    return{
-      headerTitle: routeName
-    };
-  }
-});
+}
+// ,{
+//   navigationOptions:({navigation}) => {
+//     const {routeName} = navigation.state.routes[navigation.state.index];
+//     return{
+//       headerTitle: routeName
+//     };
+//   }
+// }
+);
 
 const dashboardStackNavigator = createStackNavigator({
   dashboardTabNavigator: dashboardTabNavigator
 },{
   defaultNavigationOptions:({ navigation }) => {
     return {
-     // headerLeft: <FontAwesome name="bars" size={30} />,
+      headerLeft: <FontAwesome 
+              name="angle-left" 
+              size={40} 
+              color="#00d278" 
+              style={{ paddingLeft: 20 }} />,
       headerRight: <FontAwesome 
               name="bars" 
               size={30} 
               color="#00d278" 
               style={{ paddingRight: 10}} 
-              onPress={() => navigation.openDrawer() } />
+              onPress={() => navigation.openDrawer() } />,
+      headerTitle: <View style={{ 
+                flex: 1,
+                // borderWidth:2,
+                // borderColor:"blue",
+                justifyContent: "center",
+                alignItems: "center",
+                marginHorizontal: 40,
+                paddingTop: 30,
+                // paddingVertical: 20,
+              }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')} >
+                  <Image 
+                  source={require('./app/assets/images/Fan_Tipper_Logo_Green.png')}
+                  resizeMode="center"
+                  />
+              </TouchableOpacity>
+              </View>
     }
   }
 });
@@ -163,6 +215,8 @@ const AppDrawerNavigatior = createDrawerNavigator({
   FetchTest: FetchTest,
   ForgotPassword: ForgotPassword,
   RegisterScreen: RegisterScreen,
+  SignOrReg: SignOrReg,
+  SigninScreen: SigninScreen,
 
 },{
   unmountInactiveRoute: true,
@@ -174,7 +228,12 @@ const AppDrawerNavigatior = createDrawerNavigator({
   }
 });
 
+// currently creating
 const AppContainer = createAppContainer(appSwitchNavigator);
+
+// the one with login, forgot pw, register done
+// const AppContainer = createAppContainer(AppDrawerNavigatior);
+
 
 const styles = StyleSheet.create({
   container: {

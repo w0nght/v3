@@ -63,7 +63,7 @@ class RegisterScreen extends Component {
    				<Text style={styles.screenTitle}>Register</Text>
    				<View style={styles.signinTextCont}>
 	   				<Text style={styles.signinText}>Already have an account? </Text>
-	   				<TouchableOpacity>
+	   				<TouchableOpacity onPress={() => this.props.navigation.navigate('SigninScreen')}>
 	   					<Text style={styles.signinBtn}>Sign in</Text>
 	   				</TouchableOpacity>
    				</View>
